@@ -1,5 +1,3 @@
-import React from "react";
+import SocailLoginContainer from "./SocailLoginContainer";
 
-const R = () => <span>lala</span>;
-
-export default R;
+export default SocailLoginContainer;
