@@ -1,8 +1,12 @@
 import React from "react";
+import { Mutation, MutationUpdaterFn } from "react-apollo";
 import { RouteComponentProps } from "react-router-dom";
 import { toast } from "react-toastify";
+import {
+  startPhoneVerification,
+  startPhoneVerificationVariables
+} from "../..//types/api";
 import PhoneLoginPresenter from "./PhoneLoginPresenter";
-import { Mutation } from "react-apollo";
 import { PHONE_SIGN_IN } from "./PhoneQueries.queries";
 
 interface IState {
@@ -10,10 +14,10 @@ interface IState {
   phoneNumber: string;
 }
 
-interface IMutationInterface {
-  phoneNumber: string;
-}
-class PhoneSignInMutation extends Mutation<any, IMutationInterface> {}
+class PhoneSignInMutation extends Mutation<
+  startPhoneVerification,
+  startPhoneVerificationVariables
+> {}
 
 class PhoneLoginContainer extends React.Component<
   RouteComponentProps<any>,
@@ -32,15 +36,14 @@ class PhoneLoginContainer extends React.Component<
         variables={{
           phoneNumber: `${countryCode}${phoneNumber}`
         }}
+        update={this.afterSubmit}
       >
         {(mutation, { loading }) => {
           const onSubmit: React.FormEventHandler<HTMLFormElement> = event => {
             event.preventDefault();
-            const { countryCode, phoneNumber } = this.state;
             const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(
               `${countryCode}${phoneNumber}`
             );
-            // tslint:disable-next-line
             if (isValid) {
               mutation();
             } else {
@@ -53,6 +56,7 @@ class PhoneLoginContainer extends React.Component<
               phoneNumber={phoneNumber}
               onInputChange={this.onInputChange}
               onSubmit={onSubmit}
+              loading={loading}
             />
           );
         }}
@@ -71,7 +75,10 @@ class PhoneLoginContainer extends React.Component<
     } as any);
   };
 
-  public;
+  public afterSubmit: MutationUpdaterFn = (cache, data) => {
+    // tslint:disable-next-line
+    console.log(data);
+  };
 }
 
 export default PhoneLoginContainer;
