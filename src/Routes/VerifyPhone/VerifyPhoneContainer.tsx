@@ -5,6 +5,9 @@ import VerifyPhonePresenter from "./VerifyPhonePresenter";
 interface IProps extends RouteComponentProps<any> {}
 
 class VerifyPhoneContainer extends React.Component<IProps> {
+  public state = {
+    key: ""
+  };
   constructor(props: IProps) {
     super(props);
     if (!props.location.state) {
@@ -12,8 +15,18 @@ class VerifyPhoneContainer extends React.Component<IProps> {
     }
   }
   public render() {
-    return <VerifyPhonePresenter />;
+    const { key } = this.state;
+    return <VerifyPhonePresenter onChange={this.onInputChange} key={key} />;
   }
+
+  public onInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
+    const {
+      target: { name, value }
+    } = event;
+    this.setState({
+      [name]: value
+    } as any);
+  };
 }
 
 export default VerifyPhoneContainer;
