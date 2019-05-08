@@ -7,7 +7,7 @@ import styled from "../../typed-components";
 
 const Container = styled.div``;
 
-const Form = styled.from`
+const Form = styled.form`
   padding: 0px 40px;
 `;
 

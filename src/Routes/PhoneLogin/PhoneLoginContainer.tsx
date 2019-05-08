@@ -25,7 +25,7 @@ class PhoneLoginContainer extends React.Component<
 > {
   public state = {
     countryCode: "+82",
-    phoneNumber: "12345"
+    phoneNumber: ""
   };
 
   public render() {
