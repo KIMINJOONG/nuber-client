@@ -1,7 +1,8 @@
 import React from "react";
+import { MutationFn } from "react-apollo";
 import { Link } from "react-router-dom";
-import { userProfile, userProfile_GetMyProfile } from "src/types/api";
 import styled from "../../typed-components";
+import { toggleDriving } from "../../types/api";
 
 const Container = styled.div`
   height: 100%;
@@ -41,7 +42,7 @@ const Name = styled.h2`
 `;
 
 const Rating = styled.h5`
-  font-size: 10px;
+  font-size: 18px;
   color: white;
 `;
 
@@ -76,55 +77,43 @@ const ToggleDriving = styled<IToggleProps, any>("button")`
 `;
 
 interface IProps {
-  data?: userProfile;
+  data?: any;
   loading: boolean;
-  toggleDrivingFn: any;
+  toggleDrivingFn: MutationFn<toggleDriving>;
 }
 
-const MenuPresenter: React.SFC<IProps> = (data, loading, toggleDrivingFn) => {
-  const GetMyProfile = data.data;
-  if (GetMyProfile) {
-    const response: userProfile_GetMyProfile = GetMyProfile.GetMyProfile;
-    if (response && response.ok && response.user) {
-      const user = response.user;
-      return (
-        <Container>
-          {!loading && user && user.fullName && (
-            <>
-              <Header>
-                <Grid>
-                  <Link to={"/edit-account"}>
-                    <Image
-                      src={
-                        user.profilePhoto ||
-                        "https://yt3.ggpht.com/-CTwXMuZRaWw/AAAAAAAAAAI/AAAAAAAAAAA/HTJy-KJ4F2c/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
-                      }
-                    />
-                  </Link>
-                  <Text>
-                    <Name>{user.fullName}</Name>
-                    <Rating>4.5</Rating>
-                  </Text>
-                </Grid>
-              </Header>
-              <SLink to="/trips">Your Trips</SLink>
-              <SLink to="/settings">Settings</SLink>
-              <ToggleDriving
-                onClick={toggleDrivingFn}
-                isDriving={user.isDriving}
-              >
-                {user.isDriving ? "Stop driving" : "Start driving"}
-              </ToggleDriving>
-            </>
-          )}
-        </Container>
-      );
-    } else {
-      return loading;
-    }
-  } else {
-    return loading;
-  }
-};
+const MenuPresenter: React.SFC<IProps> = ({
+  data: { GetMyProfile: { user = null } = {} } = {},
+  loading,
+  toggleDrivingFn
+}) => (
+  <Container>
+    {!loading && user && user.fullName && (
+      <React.Fragment>
+        <Header>
+          <Grid>
+            <Link to={"/edit-account"}>
+              <Image
+                src={
+                  user.profilePhoto ||
+                  "https://lh3.googleusercontent.com/-CTwXMuZRaWw/AAAAAAAAAAI/AAAAAAAAAUg/8T5nFuIdnHE/photo.jpg"
+                }
+              />
+            </Link>
+            <Text>
+              <Name>{user.fullName}</Name>
+              <Rating>4.5</Rating>
+            </Text>
+          </Grid>
+        </Header>
+        <SLink to="/trips">Your Trips</SLink>
+        <SLink to="/settings">Settings</SLink>
+        <ToggleDriving onClick={toggleDrivingFn} isDriving={user.isDriving}>
+          {user.isDriving ? "Stop driving" : "Start driving"}
+        </ToggleDriving>
+      </React.Fragment>
+    )}
+  </Container>
+);
 
 export default MenuPresenter;
