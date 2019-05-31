@@ -18,7 +18,6 @@ interface IState {
   email: string;
   profilePhoto: string;
   uploading: boolean;
-  file?: Blob;
 }
 
 interface IProps extends RouteComponentProps<any> {}
@@ -40,13 +39,7 @@ class EditAccountContainer extends React.Component<IProps, IState> {
   };
 
   public render() {
-    const {
-      email,
-      firstName,
-      lastName,
-      profilePhoto,
-      uploading
-    } = this.state;
+    const { email, firstName, lastName, profilePhoto, uploading } = this.state;
     return (
       <ProfileQuery
         query={USER_PROFILE}
@@ -84,15 +77,27 @@ class EditAccountContainer extends React.Component<IProps, IState> {
       </ProfileQuery>
     );
   }
-  public onInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
+  public onInputChange: React.ChangeEventHandler<
+    HTMLInputElement
+  > = async event => {
     const {
       target: { name, value, files }
     } = event;
     if (files) {
       console.log(files);
       this.setState({
-        file: files[0]
-      } as any);
+        uploading: true
+      });
+      const formData = new FormData();
+      formData.append("file", files[0]);
+      formData.append("api_key", "534329296869629");
+      formData.append("upload_preset", "reactstudy");
+      formData.append("timestamp", String(Date.now() / 1000));
+      const request = await axios.post(
+        "https://api.coludinary.com/v1_1/reactstudy/image/upload",
+        formData
+      );
+      console.log(request);
     }
     this.setState({
       [name]: value
@@ -116,8 +121,6 @@ class EditAccountContainer extends React.Component<IProps, IState> {
       }
     }
   };
-
-  public onFileChange;
 }
 
 export default EditAccountContainer;

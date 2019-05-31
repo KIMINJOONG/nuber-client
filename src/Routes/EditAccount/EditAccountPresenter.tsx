@@ -5,8 +5,8 @@ import Button from "../../Components/Button";
 import Form from "../../Components/Form";
 import Header from "../../Components/Header";
 import Input from "../../Components/Input";
-import styled from "../../typed-components";
 import PhotoInput from "../../Components/PhotoInput";
+import styled from "../../typed-components";
 
 const Container = styled.div``;
 
