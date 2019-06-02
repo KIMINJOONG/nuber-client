@@ -1,4 +1,5 @@
 import React from "react";
+import { MutationFn } from "react-apollo";
 import styled from "../../typed-components";
 
 const Place = styled.div`
@@ -29,20 +30,16 @@ const Address = styled.span`
 
 interface IProps {
   fav: boolean;
-  onStarPress: any;
-  key: number;
   name: string;
   address: string;
-  id: number;
+  onStarPress: MutationFn;
 }
 
 const PlacePresenter: React.SFC<IProps> = ({
   onStarPress,
-  key,
   fav,
   name,
-  address,
-  id
+  address
 }) => (
   <Place>
     <Icon onClick={onStarPress as any}>{fav ? "★" : "✩"}</Icon>

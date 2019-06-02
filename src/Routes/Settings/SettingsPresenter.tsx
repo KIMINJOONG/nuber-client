@@ -82,7 +82,6 @@ const SettingsPresenter: React.SFC<IProps> = ({
         placesData!.GetMyPlaces.places &&
         placesData!.GetMyPlaces.places.map(place => (
           <Place
-            onStarPress={null}
             key={place!.id}
             id={place!.id}
             fav={place!.isFav}
