@@ -1,2 +1,2 @@
-import Place from "./Place";
+import Place from "./PlacePresenter";
 export default Place;

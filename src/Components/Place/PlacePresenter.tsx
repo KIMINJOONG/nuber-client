@@ -28,15 +28,24 @@ const Address = styled.span`
 `;
 
 interface IProps {
-  key: number;
   fav: boolean;
+  onStarPress: any;
+  key: number;
   name: string;
   address: string;
+  id: number;
 }
 
-const PlacePresenter: React.SFC<IProps> = ({ key, fav, name, address }) => (
+const PlacePresenter: React.SFC<IProps> = ({
+  onStarPress,
+  key,
+  fav,
+  name,
+  address,
+  id
+}) => (
   <Place>
-    <Icon>{fav ? "★" : "✩"}</Icon>
+    <Icon onClick={onStarPress as any}>{fav ? "★" : "✩"}</Icon>
     <Container>
       <Name>{name}</Name>
       <Address>{address}</Address>
