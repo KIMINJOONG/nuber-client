@@ -292,6 +292,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/googlemaps@^3.36.2":
+  version "3.36.2"
+  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.36.2.tgz#07d7c73eaeb010faeb9e6636a5f50cf2515ac2cc"
+  integrity sha512-7rF/VXWgd8LYg3HqmSFQYu+NGTzFauaW3oic1f8WjCWxOYIiyuN5gd7hrfhVMcxKRZuIyVcbuI8ty5P+3qNQ5w==
+
 "@types/history@*":
   version "4.7.2"
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.2.tgz#0e670ea254d559241b6eeb3894f8754991e73220"
@@ -4544,6 +4549,11 @@ globule@^1.0.0:
     glob "~7.1.1"
     lodash "~4.17.10"
     minimatch "~3.0.2"
+
+google-maps-react@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/google-maps-react/-/google-maps-react-2.0.2.tgz#e03fbba032fe570fb38744bf9cd10b946c591cae"
+  integrity sha512-6cYauGwt22haDUrWxKQ6yoNOqjiuxHo8YYcmb+aBvNICokdXmZOUB6Ah4vD5VexMVlrwP2PFqA/D8sHpEB52KA==
 
 got@^6.7.1:
   version "6.7.1"
